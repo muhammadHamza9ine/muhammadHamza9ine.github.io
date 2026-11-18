@@ -1,4 +1,243 @@
-<html>
-<head><title>Hamza Website</title></head>
-<body>Website is live.</body>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1026">
+  <meta name="description" content="Discover Word Matching Card Puzzle, a fun letter-card game that challenges memory, focus, and word sequencing across multiple levels.">
+  <title>Word Matching Card Puzzle</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0b1026;
+      --panel: #131a35;
+      --panel-2: #1a2345;
+      --text: #f4f6ff;
+      --muted: #b8c0dc;
+      --teal: #5eebc1;
+      --purple: #a99aff;
+      --border: rgba(255,255,255,.12);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(ellipse at 15% 0%, rgba(111, 83, 220, .22), transparent 40%),
+        radial-gradient(ellipse at 90% 25%, rgba(94, 235, 193, .10), transparent 35%),
+        var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65;
+    }
+    a { color: var(--teal); text-underline-offset: 4px; }
+    a:hover { color: #a3f7df; }
+    .wrap { width: min(1080px, calc(100% - 32px)); margin: 0 auto; }
+    header { padding: 22px 0; border-bottom: 1px solid var(--border); }
+    .nav { display: flex; justify-content: space-between; align-items: center; gap: 18px; }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; letter-spacing: .2px; }
+    .brand-mark {
+      display: grid; place-items: center; width: 42px; height: 42px; border-radius: 13px;
+      color: var(--bg); background: linear-gradient(135deg, var(--teal), var(--purple));
+      font-size: 20px; font-weight: 900; box-shadow: 0 8px 28px rgba(94,235,193,.15);
+    }
+    nav { display: flex; flex-wrap: wrap; gap: 18px; font-size: 14px; }
+    nav a { color: var(--muted); text-decoration: none; }
+    nav a:hover { color: var(--text); }
+    .hero { padding: 76px 0 54px; }
+    .hero-grid { display: grid; grid-template-columns: 1.2fr .8fr; align-items: center; gap: 42px; }
+    .eyebrow { color: var(--teal); font-size: 13px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
+    h1 { margin: 12px 0 18px; font-size: clamp(38px, 6vw, 64px); line-height: 1.08; letter-spacing: -.04em; }
+    h1 span { color: var(--teal); }
+    .lead { max-width: 660px; color: var(--muted); font-size: clamp(17px, 2vw, 20px); }
+    .tagline { margin-top: 24px; font-weight: 800; letter-spacing: .06em; }
+    .hero-art {
+      padding: 26px; border: 1px solid var(--border); border-radius: 28px;
+      background: linear-gradient(145deg, rgba(255,255,255,.07), rgba(255,255,255,.025));
+      box-shadow: 0 24px 70px rgba(0,0,0,.22);
+    }
+    .word { text-align: center; color: var(--muted); font-size: 12px; font-weight: 800; letter-spacing: .18em; }
+    .letter-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 16px 0; }
+    .letter {
+      display: grid; place-items: center; aspect-ratio: .85; border-radius: 15px;
+      border: 1px solid rgba(169,154,255,.5);
+      background: linear-gradient(160deg, #292751, #191e3d);
+      color: var(--text); font-size: clamp(24px, 4vw, 38px); font-weight: 900;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
+    }
+    .letter.good { border-color: var(--teal); color: var(--teal); transform: translateY(-3px); }
+    .progress { height: 7px; border-radius: 99px; background: #303654; overflow: hidden; }
+    .progress span { display: block; height: 100%; width: 65%; background: linear-gradient(90deg, var(--purple), var(--teal)); border-radius: inherit; }
+    .art-caption { text-align: center; color: var(--muted); font-size: 13px; margin-top: 14px; }
+    section { padding: 36px 0; }
+    .section-head { max-width: 720px; margin-bottom: 24px; }
+    h2 { font-size: clamp(27px, 4vw, 38px); line-height: 1.2; margin: 0 0 12px; letter-spacing: -.025em; }
+    .section-head p, .muted { color: var(--muted); }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .card { padding: 22px; border: 1px solid var(--border); border-radius: 20px; background: rgba(19,26,53,.78); }
+    .icon { font-size: 26px; }
+    .card h3 { margin: 10px 0 7px; font-size: 18px; }
+    .card p { margin: 0; color: var(--muted); font-size: 15px; }
+    .how-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; counter-reset: step; }
+    .step { position: relative; padding: 22px; border-radius: 18px; background: var(--panel-2); border: 1px solid var(--border); }
+    .step::before { counter-increment: step; content: "0" counter(step); color: var(--teal); font-weight: 900; font-size: 13px; letter-spacing: .1em; }
+    .step h3 { margin: 8px 0; }
+    .step p { margin: 0; color: var(--muted); font-size: 15px; }
+    .callout { padding: 28px; border-radius: 24px; border: 1px solid rgba(94,235,193,.25); background: linear-gradient(135deg, rgba(94,235,193,.09), rgba(169,154,255,.08)); }
+    footer { margin-top: 42px; padding: 26px 0 36px; border-top: 1px solid var(--border); color: var(--muted); font-size: 13px; }
+    .footer-row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 14px; }
+    @media (max-width: 760px) {
+      .hero { padding-top: 48px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 28px; }
+      .hero-art { max-width: 440px; }
+      .cards, .how-grid { grid-template-columns: 1fr; }
+      .nav { align-items: flex-start; flex-direction: column; }
+      nav { gap: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">W</div>
+        <span>Word Matching Card Puzzle</span>
+      </div>
+      <nav aria-label="Main navigation">
+        <a href="#about">About</a>
+        <a href="#features">Features</a>
+        <a href="#how-to-play">How to Play</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="eyebrow">A word puzzle challenge</div>
+          <h1>Think. Match.<br><span>Complete. Win!</span></h1>
+          <p class="lead">
+            Welcome to <strong>Word Matching Card Puzzle</strong> — a fun and engaging word puzzle game
+            that challenges your memory, focus, and thinking skills. Reveal letter cards, follow the
+            correct sequence, and complete words as you progress through levels.
+          </p>
+          <p class="tagline">A little puzzle. A fresh challenge.</p>
+        </div>
+        <div class="hero-art" aria-label="Illustration of letter cards spelling DOOR">
+          <div class="word">COMPLETE THE WORD</div>
+          <div class="letter-row">
+            <div class="letter good">D</div>
+            <div class="letter good">O</div>
+            <div class="letter">O</div>
+            <div class="letter">R</div>
+          </div>
+          <div class="progress" aria-hidden="true"><span></span></div>
+          <div class="art-caption">Remember the letters. Choose the right order.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>About the game</h2>
+          <p>
+            Word Matching Card Puzzle combines letter cards, word completion, and level-based play
+            in one simple puzzle experience. Each challenge invites you to pay attention, remember
+            what you have seen, and select letters in the required order before time runs out.
+          </p>
+          <p class="muted">
+            Play at your own pace, improve your approach with every round, and enjoy the satisfaction
+            of completing each word.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Features</h2>
+          <p>Made for short puzzle sessions and players who enjoy a little brain-teasing challenge.</p>
+        </div>
+        <div class="cards">
+          <article class="card">
+            <div class="icon" aria-hidden="true">🧠</div>
+            <h3>Memory & Focus</h3>
+            <p>Challenge your memory and concentration as you reveal and remember letter cards.</p>
+          </article>
+          <article class="card">
+            <div class="icon" aria-hidden="true">🔤</div>
+            <h3>Letter Matching</h3>
+            <p>Find the letters you need and use them to complete the target word.</p>
+          </article>
+          <article class="card">
+            <div class="icon" aria-hidden="true">🎯</div>
+            <h3>Correct Sequence</h3>
+            <p>Pay attention to the required letter order and choose carefully.</p>
+          </article>
+          <article class="card">
+            <div class="icon" aria-hidden="true">⏱️</div>
+            <h3>Beat the Timer</h3>
+            <p>Make your choices before the available time runs out.</p>
+          </article>
+          <article class="card">
+            <div class="icon" aria-hidden="true">🎮</div>
+            <h3>Level Progression</h3>
+            <p>Keep playing through multiple levels and take on new puzzle challenges.</p>
+          </article>
+          <article class="card">
+            <div class="icon" aria-hidden="true">✨</div>
+            <h3>Smooth Experience</h3>
+            <p>Enjoy card animations and a polished visual style designed for focused play.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="how-to-play">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>How to play</h2>
+          <p>Follow these simple steps to take on a word challenge.</p>
+        </div>
+        <div class="how-grid">
+          <article class="step">
+            <h3>Read the target word</h3>
+            <p>Look at the word shown for the current puzzle and notice its letters.</p>
+          </article>
+          <article class="step">
+            <h3>Reveal and select cards</h3>
+            <p>Tap the letter cards and choose the next required letter in the sequence.</p>
+          </article>
+          <article class="step">
+            <h3>Complete the puzzle</h3>
+            <p>Finish the word before time or moves run out, then continue to the next challenge when available.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="callout">
+          <h2>Ready for a word challenge?</h2>
+          <p class="muted">Train your focus, trust your memory, and see how many words you can complete.</p>
+          <p class="tagline">Think. Match. Complete. Win!</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-row">
+      <span>© <span id="year">2026</span> Word Matching Card Puzzle</span>
+      <span>Thank you for playing. We appreciate your support!</span>
+    </div>
+  </footer>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
 </html>
